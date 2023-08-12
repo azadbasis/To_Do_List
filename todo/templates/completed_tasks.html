@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="width: 80%; margin:auto">
+  {% if data %}
+  <h1>Show Completed Tasks:</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for item in data %}
+      <tr>
+        <td>{{item.taskTitle}}</td>
+        <td>{{item.taskDescription}}</td>
+        <td>
+          {% if item.is_completed %}
+          completed
+          {% endif %}
+        </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h1>There are no completed tasks available!</h1>
+  {% endif %}
+</div>
+{% endblock %}

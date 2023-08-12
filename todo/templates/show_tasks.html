@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="width: 80%; margin:auto">
+  {% if data %}
+  <h1>Show Incomplete Tasks:</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for item in data %}
+      {% if not item.is_completed %}
+      <tr>
+        <td>{{item.taskTitle}}</td>
+        <td>{{item.taskDescription}}</td>
+        <td>
+          {% if not item.is_completed %}
+          Incomplete
+          {% endif %}
+        </td>
+
+        <td>
+          <a class="btn btn-warning sm-btn" href="{% url 'edittasks' item.pk  %}">Edit</a>
+          <a class="btn btn-danger sm-btn" href="{% url 'deletetaks' item.pk  %}">Delete</a>
+          <a class="btn btn-primary sm-btn" href="{% url 'mark_completed' item.pk %}">Complete</a>
+        </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h1>There are no incomplete tasks available!</h1>
+  {% endif %}
+</div>
+{% endblock %}
